@@ -32,7 +32,7 @@ const Footer = () => {
           <p>United States</p>
           <p>+91-987654321</p>
           <p>Demo@exampledemo.com</p>
-          <div className="footer-icons">
+          <div className="footer-icons flex gap-2 mb-2">
             <a className="text-white fs-2" href="#">< FaFacebook /></a>
             <a className="text-white fs-2" href="#">< FaTwitter /></a>
             <a className="text-white fs-2" href="#">< FaPinterest /></a>
