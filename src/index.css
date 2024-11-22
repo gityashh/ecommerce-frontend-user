@@ -482,3 +482,59 @@ Footer
   cursor: pointer;
 }
 
+/* Description Section */
+.description-section {
+  padding: 20px 0;
+}
+
+.description-box {
+  background-color: #ffffff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.description-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.description-text {
+  font-size: 1rem;
+  color: #4a4a4a;
+}
+
+/* Reviews Section */
+.reviews-section {
+  padding: 20px 0;
+}
+
+.reviews-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+.reviews-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.reviews-stars {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reviews-count {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.write-review-link {
+  font-size: 1rem;
+  color: #f59e0b;
+  text-decoration: underline;
+}

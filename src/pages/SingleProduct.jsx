@@ -1,99 +1,267 @@
-import React, { useState } from 'react'
-import ReactStars from 'react-stars'
+import React, { useState } from 'react';
+import ReactStars from 'react-stars';
 
 const SingleProduct = () => {
-  const [orderedProduct, setOrderedProduct] = useState(true)
-  return (
-    <div className="main-product-wrapper min-h-screen py-5 home-wrapper-2 bg-zinc-100 px-5">
-      <div className="container-xxl">
-        <div className="row">
-          <div className="col-6">
-    
-          </div>
-        </div>
-      </div>
-      <section className="bg-white py-8 px-6 rounded-lg shadow-md mb-8">
-        <h3 className="text-2xl font-semibold text-gray-800 mb-4">
-          Description
-        </h3>
-        <p className="text-gray-600 leading-relaxed">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-          quos. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Quisquam, quos.
-        </p>
-      </section>
+  const [orderedProduct, setOrderedProduct] = useState(true);
+  const [quantity, setQuantity] = useState(1)
 
-      {/* Reviews Section */}
-      <section className="bg-white py-8 px-6 rounded-lg shadow-md">
-        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-6">
-          <div>
-            <h4 className="text-2xl font-semibold text-gray-800 mb-2">
-              Customer Reviews
-            </h4>
-            <div className="flex items-center gap-2">
-              <ReactStars
-                count={5}
-                size={24}
-                color2={'#ffd700'}
-                edit={false}
-                value={4}
+  // Mock data for user reviews
+  const userReviews = [
+    {
+      id: 1,
+      name: 'John Doe',
+      rating: 5,
+      comment: 'Excellent product! Highly recommend.',
+    },
+    {
+      id: 2,
+      name: 'Jane Smith',
+      rating: 4,
+      comment: 'Great quality but a bit expensive.',
+    },
+    {
+      id: 3,
+      name: 'Mark Wilson',
+      rating: 3,
+      comment: 'Average product. Could be better.',
+    },
+  ];
+
+  return (
+    <div className="product-details-wrapper min-h-screen py-5 bg-gray-100">
+      <div className="container mx-auto">
+        <div className="grid grid-cols-12 gap-6">
+          {/* Left Section - Product Images */}
+          <div className="col-span-6">
+            <div className="flex flex-col gap-4">
+              <img
+                src="https://via.placeholder.com/600"
+                alt="Main Product"
+                className="w-full h-auto object-cover rounded-lg"
               />
-              <p className="text-gray-600">based on 100 reviews</p>
+              <div className="grid grid-cols-4 gap-2">
+                <img
+                  src="https://via.placeholder.com/150"
+                  alt="Thumbnail 1"
+                  className="w-full h-auto object-cover rounded-lg border border-gray-300"
+                />
+                <img
+                  src="https://via.placeholder.com/150"
+                  alt="Thumbnail 2"
+                  className="w-full h-auto object-cover rounded-lg border border-gray-300"
+                />
+                <img
+                  src="https://via.placeholder.com/150"
+                  alt="Thumbnail 3"
+                  className="w-full h-auto object-cover rounded-lg border border-gray-300"
+                />
+                <img
+                  src="https://via.placeholder.com/150"
+                  alt="Thumbnail 4"
+                  className="w-full h-auto object-cover rounded-lg border border-gray-300"
+                />
+              </div>
             </div>
           </div>
-          {orderedProduct && (
-            <div>
-              <a
-                href="#"
-                className="text-blue-600 underline hover:text-blue-800 transition"
-              >
+
+          {/* Right Section - Product Info */}
+          <div className="col-span-6">
+            <h1 className="text-2xl font-bold mb-3">
+              Kids Headphones Bulk 10 Pack Multi-Colored for Students
+            </h1>
+            <p className="text-xl text-yellow-500 font-semibold mb-2">$100.00</p>
+            <div className="flex items-center gap-2 mb-4">
+              <ReactStars count={5} size={24} color2={'#ffd700'} edit={false} value={4} />
+              <span className="text-gray-600">(2 reviews)</span>
+              <a href="#" className="text-yellow-500 underline ml-2">
                 Write a review
               </a>
             </div>
-          )}
-        </div>
 
-        {/* Review Cards */}
-        <div className="space-y-6">
-          {/* Single Review */}
-          <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-            <div className="flex items-center justify-between mb-2">
-              <h5 className="text-lg font-semibold text-gray-800">
-                John Doe
-              </h5>
-              <ReactStars
-                count={5}
-                size={20}
-                color2={'#ffd700'}
-                edit={false}
-                value={5}
-              />
+            {/* Product Details */}
+            <div className="text-sm text-gray-700 space-y-2 mb-4">
+              <p>
+                <span className="font-bold">Type:</span> Headsets
+              </p>
+              <p>
+                <span className="font-bold">Brand:</span> Havells
+              </p>
+              <p>
+                <span className="font-bold">Categories:</span> airpods, cameras, computers & laptops,
+                headphones, mini speaker, our store, portable speakers, smart
+                phones, smartwatches
+              </p>
+              <p>
+                <span className="font-bold">Tags:</span> headphones, laptop, mobile, oppo, speaker
+              </p>
+              <p>
+                <span className="font-bold">SKU:</span> SKU027
+              </p>
+              <p>
+                <span className="font-bold">Availability:</span> 541 In Stock
+              </p>
             </div>
-            <p className="text-gray-600">
-              Amazing product! The quality is top-notch and delivery was
-              quick. Highly recommended!
-            </p>
+
+            {/* Size and Color Options */}
+            <div className="flex items-center gap-6 mb-4">
+              {/* Size */}
+              <div>
+                <p className="font-bold mb-1">Size</p>
+                <div className="flex gap-2">
+                  <button className="px-4 py-2 border border-gray-300 rounded hover:border-black">
+                    S
+                  </button>
+                  <button className="px-4 py-2 border border-gray-300 rounded hover:border-black">
+                    L
+                  </button>
+                </div>
+              </div>
+
+              {/* Color */}
+              <div>
+                <p className="font-bold mb-1">Color</p>
+                <div className="flex gap-2">
+                  <div className="w-8 h-8 rounded-full bg-red-500 border border-gray-300"></div>
+                  <div className="w-8 h-8 rounded-full bg-blue-500 border border-gray-300"></div>
+                </div>
+              </div>
+            </div>
+
+            {/* Quantity and Actions */}
+            <div className="flex items-center gap-6 mb-6">
+              {/* Quantity Selector */}
+              <div>
+                <p className="font-bold mb-1">Quantity</p>
+                <input
+                  type="number"
+                  className="w-16 px-2 py-1 border border-gray-300 rounded"
+                  value={quantity}
+                  onChange={(e) => setQuantity(Number(e.target.value))}
+                  min="1"
+                />
+              </div>
+
+              {/* Buttons */}
+              <div className="flex gap-4">
+                <button className="px-6 py-2 bg-black text-white rounded hover:bg-gray-800">
+                  Add to Cart
+                </button>
+                <button className="px-6 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">
+                  Buy It Now
+                </button>
+              </div>
+            </div>
           </div>
+        </div>
+      </div>
 
-          {/* Another Review */}
-          <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-            <div className="flex items-center justify-between mb-2">
-              <h5 className="text-lg font-semibold text-gray-800">
-                Jane Smith
-              </h5>
-              <ReactStars
-                count={5}
-                size={20}
-                color2={'#ffd700'}
-                edit={false}
-                value={4}
-              />
+      <section className="description-section">
+        <div className="container-xxl">
+          <div className="row">
+            <div className="col-12">
+              <div className="description-box bg-white p-4 rounded-lg shadow-md">
+                <h3 className="description-title">Description</h3>
+                <p className="description-text">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quisquam, quos. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet
+                  consectetur adipisicing elit. Quisquam, quos.
+                </p>
+              </div>
             </div>
-            <p className="text-gray-600">
-              Very satisfied with the product. Could improve the packaging,
-              but overall great!
-            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="reviews-section">
+        <div className="container-xxl">
+          <div className="row">
+            <div className="col-12">
+              <div className="reviews-header flex justify-between items-end">
+                <div>
+                  <h4 className="reviews-title">Customer Reviews</h4>
+                  <div className="reviews-stars flex items-center gap-2">
+                    <ReactStars
+                      count={5}
+                      size={24}
+                      color2={'#ffd700'}
+                      edit={false}
+                      value={4}
+                    />
+                    <p className="reviews-count mb-0">based on 100 reviews</p>
+                  </div>
+                </div>
+                {orderedProduct && (
+                  <div>
+                    <a
+                      className="write-review-link text-yellow-500 underline"
+                      href=""
+                    >
+                      Write a review
+                    </a>
+                  </div>
+                )}
+              </div>
+              <div className="review-form mt-4">
+                <form>
+                  <div className="form-group mb-3">
+                    <label htmlFor="star-rating" className="form-label">
+                      Rating:
+                    </label>
+                    <ReactStars
+                      count={5}
+                      size={24}
+                      color2={'#ffd700'}
+                      value={0}
+                      half={false}
+                      onChange={(newRating) => console.log(newRating)}
+                    />
+                  </div>
+                  <div className="form-group mb-3">
+                    <label htmlFor="review-text" className="form-label">
+                      Your Review:
+                    </label>
+                    <textarea
+                      id="review-text"
+                      className="form-control"
+                      rows="4"
+                      placeholder="Write your review here..."
+                    ></textarea>
+                  </div>
+                  <button
+                    type="submit"
+                    className="btn btn-primary bg-dark text-white border-0"
+                  >
+                    Submit Review
+                  </button>
+                </form>
+              </div>
+              <div className="user-reviews mt-5">
+                <h5 className="reviews-title mb-4">What Others Are Saying</h5>
+                {userReviews.map((review) => (
+                  <div
+                    key={review.id}
+                    className="user-review bg-white p-3 rounded-lg shadow-sm mb-3"
+                  >
+                    <div className="d-flex justify-content-between">
+                      <h6 className="reviewer-name font-bold">
+                        {review.name}
+                      </h6>
+                      <ReactStars
+                        count={5}
+                        size={20}
+                        color2={'#ffd700'}
+                        edit={false}
+                        value={review.rating}
+                      />
+                    </div>
+                    <p className="review-comment text-gray-700">
+                      {review.comment}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -101,4 +269,4 @@ const SingleProduct = () => {
   );
 };
 
-export default SingleProduct
+export default SingleProduct;

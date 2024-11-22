@@ -73,7 +73,7 @@ const Header = () => {
                 <div className="align-items-cente ">
                   <Link
                     className="d-flex align-items-center text-white gap-10 mb-0"
-                    to="/"
+                    to="/cart"
                   >
                     <img src="images/cart.svg" alt="cart" />
                     <div className="d-flex flex-column gap-1 mb-0">

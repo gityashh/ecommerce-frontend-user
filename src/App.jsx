@@ -13,7 +13,8 @@ import SignUp from './pages/SignUp'
 import ResetPassword from './pages/ResetPassword'
 import Blog from './pages/Blog'
 import SingleProduct from './pages/SingleProduct'
-
+import Cart from './pages/Cart'
+import Checkout from './pages/Checkout'
 const App = () => {
   return (
     <BrowserRouter>
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="contact" element={<Contact />} />
           <Route path="blogs" element={<Blogs />} />
           <Route path="wishlist" element={<WishList />} />
+          <Route path="cart" element={<Cart />} />
           <Route path="login" element={<Login />} />
           <Route path="blog/:id" element={<Blog />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
@@ -32,6 +34,7 @@ const App = () => {
         </Route>
         <Route path="reset-password" element={<ResetPassword />} />
         <Route path="single-product/:id" element={<SingleProduct />} />
+        <Route path="checkout" element={<Checkout />} />
       </Routes>
     </BrowserRouter>
   )
