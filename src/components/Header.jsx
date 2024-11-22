@@ -43,14 +43,14 @@ const Header = () => {
                 />
                 <span className="input-group-text" id="basic-addon2">
                   <BsSearch className="fs-4" />
-                </span>
+                 </span>
               </div>
             </div>
             <div className="col-5">
               <div className="header-upper-links d-flex align-items-center justify-content-between">
                 <div>
                   <Link
-                    to="/"
+                    to="/wishlist"
                     className="d-flex align-items-center text-white gap-10"
                   >
                     <img src="/images/wishlist.svg" alt="wishlist" />
@@ -61,7 +61,7 @@ const Header = () => {
                 </div>
                 <div>
                   <Link
-                    to="/"
+                    to="/login"
                     className="d-flex align-items-center text-white gap-10"
                   >
                     <img src="/images/user.svg" alt="wishlist" />

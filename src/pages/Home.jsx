@@ -222,16 +222,6 @@ const HomeBanner = () => {
           <h2 className="text-2xl font-bold text-gray-800 mb-6">
             featured Products
           </h2>
-
-          {/* Cards Container */}
-          <div className="row g-4">
-            <div className="col-md-4">
-              <ProductCard />
-            </div>
-            <div className="col-md-4">
-              <ProductCard />
-            </div>
-          </div>
         </div>
       </div>
     </>
