@@ -9,6 +9,6 @@ const registerUser = async (userData) => {
   return response.data;
 };
 
-export const authService =  {
-  registerUser,
-};
+export const userService = {
+  registerUser
+}
