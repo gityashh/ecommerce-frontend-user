@@ -1,6 +1,29 @@
 import React from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 const Signup = () => {
+  const formik = useFormik({
+    initialValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+    },
+    onSubmit: values => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
+  let userSchema = object({
+    name: string().required(),
+    age: number().required().positive().integer(),
+    email: string().email(),
+    website: string().url().nullable(),
+    createdOn: date().default(() => new Date()),
+  });
+
+
+
   return (
     <div className="flex items-center justify-center py-12 bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
@@ -11,18 +34,37 @@ const Signup = () => {
           Create your account to get started.
         </p>
         <form>
-          {/* Name Input */}
+          {/*First Name Input */}
           <div className="mb-4">
             <label
-              htmlFor="name"
+              htmlFor="firstName"
               className="block text-sm font-medium text-gray-700 mb-1"
             >
               Name
             </label>
             <input
               type="text"
-              id="name"
+              id="firstName"
+              name="firstName"
               placeholder="Enter your name"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              required
+            />
+          </div>
+
+          {/* last Name Input */}
+          <div className="mb-4">
+            <label
+              htmlFor="lastName"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Last Name
+            </label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              placeholder="Enter your last name"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
               required
             />
@@ -39,6 +81,7 @@ const Signup = () => {
             <input
               type="email"
               id="email"
+              name="email"
               placeholder="Enter your email"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
               required
