@@ -1,16 +1,29 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { FaHeart } from "react-icons/fa"; // Importing a heart icon from react-icons
 
-const ProductCard = () => {
+const ProductCard = ({ productId }) => {
   return (
-    <div className="col-12 ">
-      <div className="card shadow-sm ">
-        <img
-          src="https://via.placeholder.com/300x200"
-          className="card-img-top"
-          alt="Product Image"
-        />
+    <div className="col-12">
+      <div className="card shadow-sm position-relative">
+        {/* Add a wishlist heart icon with absolute positioning */}
+        <div className="wishlist-icon position-absolute" style={{ top: '10px', right: '10px' }}>
+          <Link to="/wishlist">
+            <FaHeart style={{ color: 'red', fontSize: '24px' }} />
+          </Link>
+        </div>
+        {/* Wrap the image and title with a Link to the single-product page */}
+        <Link to={`/single-product/${productId}`}>
+          <img
+            src="https://via.placeholder.com/300x200"
+            className="card-img-top"
+            alt="Product Image"
+          />
+          <div className="card-body">
+            <h5 className="card-title">Product Title</h5>
+          </div>
+        </Link>
         <div className="card-body">
-          <h5 className="card-title">Product Title</h5>
           <p className="card-text">
             A short description of the product. This gives a brief overview of
             what it is.

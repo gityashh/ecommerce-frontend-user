@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -13,6 +13,7 @@ import SignUp from './pages/SignUp'
 import ResetPassword from './pages/ResetPassword'
 import Blog from './pages/Blog'
 import SingleProduct from './pages/SingleProduct'
+
 const App = () => {
   return (
     <BrowserRouter>
