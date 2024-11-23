@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../features/products/productSlice";
-import { useEffect } from "react";
+  
 const OurStore = () => {
-  const [grid, setGrid] = useState(4)
-  const dispatch = useDispatch()
+  const [grid, setGrid] = useState(4);
+  const { products, isLoading, isError, isSuccess, message } = useSelector((state) => state.product)
+  const dispatch = useDispatch();
+  const { wishlist } = useSelector((state) => state.auth.wishlist)
+
   useEffect(() => {
-    getProducts()
-  }, [])
-  const getProducts = () => {
-    dispatch(getProducts())
-  }
+    dispatch(getProducts());
+  }, [wishlist]);
+
   return (
     <>
       <div className="store-wrapper home-wrapper-2 py-5">
@@ -240,18 +241,12 @@ const OurStore = () => {
                           </div>
             <div className="product-list  w-full">
               <div className="row">
-                 <div className="col-3 ">
-                    <ProductCard />
-                  </div>
-                  <div className="col-3 ">
-                    <ProductCard />
-                  </div>
-                  <div className="col-3 ">
-                    <ProductCard />
-                  </div>
-                  <div className="col-3 ">
-                    <ProductCard />
-                  </div>
+                
+                  {products.map((product) => (
+                    <div className="col-3">
+                      <ProductCard wishlist={wishlist} key={product._id} id={product._id} {...product} />
+                    </div>
+                    ))}
               </div>
             </div>
             </div>
