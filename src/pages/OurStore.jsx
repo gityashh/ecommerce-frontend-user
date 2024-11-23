@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import ProductCard from "../components/ProductCard";
-
+import { useDispatch } from "react-redux";
+import { getProducts } from "../features/products/productSlice";
+import { useEffect } from "react";
 const OurStore = () => {
+  const [grid, setGrid] = useState(4)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    getProducts()
+  }, [])
+  const getProducts = () => {
+    dispatch(getProducts())
+  }
   return (
     <>
       <div className="store-wrapper home-wrapper-2 py-5">
