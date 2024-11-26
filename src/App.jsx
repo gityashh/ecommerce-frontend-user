@@ -35,6 +35,7 @@ const App = () => {
         <Route path="reset-password" element={<ResetPassword />} />
         <Route path="single-product/:id" element={<SingleProduct />} />
         <Route path="checkout" element={<Checkout />} />
+        {/* Protected Routes */}
       </Routes>
     </BrowserRouter>
   )
