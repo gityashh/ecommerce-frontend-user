@@ -5,9 +5,9 @@ import { getProducts } from "../features/products/productSlice";
   
 const OurStore = () => {
   const [grid, setGrid] = useState(4);
-  const { products, isLoading, isError, isSuccess, message } = useSelector((state) => state.product)
+  const { products, isLoading, isError, isSuccess, message } = useSelector((state) => state?.product)
   const dispatch = useDispatch();
-  const { wishlist } = useSelector((state) => state.auth.wishlist)
+  const { wishlist } = useSelector((state) => state?.auth?.wishlist)
 
   useEffect(() => {
     dispatch(getProducts());
@@ -241,12 +241,13 @@ const OurStore = () => {
                           </div>
             <div className="product-list  w-full">
               <div className="row">
-                
-                  {products.map((product) => (
+                {isLoading ? <h1>Loading...</h1> : isError ? <h1>{message}</h1> : isSuccess && (
+                  products.map((product) => (
                     <div className="col-3">
                       <ProductCard wishlist={wishlist} key={product._id} id={product._id} {...product} />
                     </div>
-                    ))}
+                  ))
+                )}
               </div>
             </div>
             </div>
