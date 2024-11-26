@@ -9,12 +9,12 @@ import Blogs  from './pages/Blogs'
 import WishList from './pages/WishList'
 import Login from './pages/Login'
 import ForgotPassword from './pages/ForgotPassword'
-import SignUp from './pages/SignUp'
 import ResetPassword from './pages/ResetPassword'
 import Blog from './pages/Blog'
 import SingleProduct from './pages/SingleProduct'
 import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
+import SignUp from './pages/SignUp'
 const App = () => {
   return (
     <BrowserRouter>
@@ -30,7 +30,7 @@ const App = () => {
           <Route path="login" element={<Login />} />
           <Route path="blogs/:id" element={<Blog />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
-          <Route path="signup" element={<SignUp />} />
+          <Route path="signup" element={< SignUp />} />
         </Route>
         <Route path="reset-password" element={<ResetPassword />} />
         <Route path="single-product/:id" element={<SingleProduct />} />
