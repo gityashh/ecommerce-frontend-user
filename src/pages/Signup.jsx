@@ -15,7 +15,7 @@ let signupSchema = yup.object({
   password: yup.string().required("Password is required"),
 });
 
-const Signup = () => {
+const SignUp = () => {
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
