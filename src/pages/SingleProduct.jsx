@@ -1,9 +1,22 @@
 import React, { useState } from 'react';
 import ReactStars from 'react-stars';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getProduct } from '../features/products/productSlice';
 
 const SingleProduct = () => {
   const [orderedProduct, setOrderedProduct] = useState(true);
-  const [quantity, setQuantity] = useState(1)
+  const [quantity, setQuantity] = useState(1);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProduct(id));
+  }, [dispatch, id]);
+
+  const { product } = useSelector((state) => state?.product);
 
   // Mock data for user reviews
   const userReviews = [
@@ -27,6 +40,12 @@ const SingleProduct = () => {
     },
   ];
 
+  // Copy link to clipboard
+  const copyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    alert('Product link copied to clipboard!');
+  };
+
   return (
     <div className="product-details-wrapper min-h-screen py-5 bg-gray-100">
       <div className="container mx-auto">
@@ -34,42 +53,30 @@ const SingleProduct = () => {
           {/* Left Section - Product Images */}
           <div className="col-span-6">
             <div className="flex flex-col gap-4">
-              <img
-                src="https://via.placeholder.com/600"
-                alt="Main Product"
-                className="w-full h-auto object-cover rounded-lg"
-              />
+              {product?.images && product.images.length > 0 && product.images[0]?.url && (
+                <img
+                  src={product.images[0].url}
+                  alt="Main Product"
+                  className="w-full h-auto object-cover rounded-lg"
+                />
+              )}
               <div className="grid grid-cols-4 gap-2">
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="Thumbnail 1"
-                  className="w-full h-auto object-cover rounded-lg border border-gray-300"
-                />
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="Thumbnail 2"
-                  className="w-full h-auto object-cover rounded-lg border border-gray-300"
-                />
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="Thumbnail 3"
-                  className="w-full h-auto object-cover rounded-lg border border-gray-300"
-                />
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="Thumbnail 4"
-                  className="w-full h-auto object-cover rounded-lg border border-gray-300"
-                />
+                {product?.images?.map((image) => (
+                  <img
+                    key={image?._id}
+                    src={image?.url}
+                    alt="Product Image"
+                    className="w-full h-auto object-cover rounded-lg border border-gray-300"
+                  />
+                ))}
               </div>
             </div>
           </div>
 
           {/* Right Section - Product Info */}
           <div className="col-span-6">
-            <h1 className="text-2xl font-bold mb-3">
-              Kids Headphones Bulk 10 Pack Multi-Colored for Students
-            </h1>
-            <p className="text-xl text-yellow-500 font-semibold mb-2">$100.00</p>
+            <h1 className="text-2xl font-bold mb-3">{product?.title}</h1>
+            <p className="text-xl text-yellow-500 font-semibold mb-2">${product?.price}</p>
             <div className="flex items-center gap-2 mb-4">
               <ReactStars count={5} size={24} color2={'#ffd700'} edit={false} value={4} />
               <span className="text-gray-600">(2 reviews)</span>
@@ -81,53 +88,37 @@ const SingleProduct = () => {
             {/* Product Details */}
             <div className="text-sm text-gray-700 space-y-2 mb-4">
               <p>
-                <span className="font-bold">Type:</span> Headsets
+                <span className="font-bold">Type:</span> {product?.category}
               </p>
               <p>
-                <span className="font-bold">Brand:</span> Havells
+                <span className="font-bold">Brand:</span> {product?.brand}
               </p>
               <p>
-                <span className="font-bold">Categories:</span> airpods, cameras, computers & laptops,
-                headphones, mini speaker, our store, portable speakers, smart
-                phones, smartwatches
+                <span className="font-bold">Tags:</span> {product?.tags}
               </p>
               <p>
-                <span className="font-bold">Tags:</span> headphones, laptop, mobile, oppo, speaker
-              </p>
-              <p>
-                <span className="font-bold">SKU:</span> SKU027
-              </p>
-              <p>
-                <span className="font-bold">Availability:</span> 541 In Stock
+                <span className="font-bold">Availability:</span> {product?.quantity > 0 ? "In Stock" : "Out of Stock"}
               </p>
             </div>
 
             {/* Size and Color Options */}
             <div className="flex items-center gap-6 mb-4">
-              {/* Size */}
-              <div>
-                <p className="font-bold mb-1">Size</p>
-                <div className="flex gap-2">
-                  <button className="px-4 py-2 border border-gray-300 rounded hover:border-black">
-                    S
-                  </button>
-                  <button className="px-4 py-2 border border-gray-300 rounded hover:border-black">
-                    L
-                  </button>
-                </div>
-              </div>
-
               {/* Color */}
               <div>
                 <p className="font-bold mb-1">Color</p>
                 <div className="flex gap-2">
-                  <div className="w-8 h-8 rounded-full bg-red-500 border border-gray-300"></div>
-                  <div className="w-8 h-8 rounded-full bg-blue-500 border border-gray-300"></div>
+                  {product?.color?.map((color) => (
+                    <div
+                      key={color._id}
+                      className="w-8 h-8 rounded-full border border-gray-300"
+                      style={{ backgroundColor: color.title }}
+                    ></div>
+                  ))}
                 </div>
               </div>
             </div>
 
-            {/* Quantity and Actions */}
+            {/* Quantity, Wishlist, and Actions */}
             <div className="flex items-center gap-6 mb-6">
               {/* Quantity Selector */}
               <div>
@@ -149,118 +140,60 @@ const SingleProduct = () => {
                 <button className="px-6 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">
                   Buy It Now
                 </button>
+                <button
+                  className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                  onClick={copyLink}
+                >
+                  Copy Link
+                </button>
+                <button className="px-6 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+                  Add to Wishlist
+                </button>
               </div>
+            </div>
+
+            {/* Shipping and Returns */}
+            <div className="mb-4">
+              <h3 className="font-bold mb-2">Shipping & Returns</h3>
+              <p className="text-sm text-gray-600">
+                Free shipping on orders over $50. Returns accepted within 30 days of delivery. Contact customer service for
+                more details.
+              </p>
             </div>
           </div>
         </div>
       </div>
 
+      {/* Description Section */}
       <section className="description-section">
         <div className="container-xxl">
           <div className="row">
             <div className="col-12">
               <div className="description-box bg-white p-4 rounded-lg shadow-md">
                 <h3 className="description-title">Description</h3>
-                <p className="description-text">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Quisquam, quos. Lorem ipsum dolor sit amet consectetur
-                  adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet
-                  consectetur adipisicing elit. Quisquam, quos.
-                </p>
+                <p className="description-text">{product?.description}</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Reviews Section */}
       <section className="reviews-section">
         <div className="container-xxl">
           <div className="row">
             <div className="col-12">
-              <div className="reviews-header flex justify-between items-end">
-                <div>
-                  <h4 className="reviews-title">Customer Reviews</h4>
-                  <div className="reviews-stars flex items-center gap-2">
-                    <ReactStars
-                      count={5}
-                      size={24}
-                      color2={'#ffd700'}
-                      edit={false}
-                      value={4}
-                    />
-                    <p className="reviews-count mb-0">based on 100 reviews</p>
-                  </div>
+              <h4 className="reviews-title">Customer Reviews</h4>
+              {userReviews.map((review) => (
+                <div
+                  key={review.id}
+                  className="user-review bg-white p-3 rounded-lg shadow-sm mb-3"
+                >
+                  <h6 className="reviewer-name font-bold">{review.name}</h6>
+                  <ReactStars count={5} size={20} color2={'#ffd700'} edit={false} value={review.rating} />
+                  <p className="review-comment text-gray-700">{review.comment}</p>
                 </div>
-                {orderedProduct && (
-                  <div>
-                    <a
-                      className="write-review-link text-yellow-500 underline"
-                      href=""
-                    >
-                      Write a review
-                    </a>
-                  </div>
-                )}
-              </div>
-              <div className="review-form mt-4">
-                <form>
-                  <div className="form-group mb-3">
-                    <label htmlFor="star-rating" className="form-label">
-                      Rating:
-                    </label>
-                    <ReactStars
-                      count={5}
-                      size={24}
-                      color2={'#ffd700'}
-                      value={0}
-                      half={false}
-                      onChange={(newRating) => console.log(newRating)}
-                    />
-                  </div>
-                  <div className="form-group mb-3">
-                    <label htmlFor="review-text" className="form-label">
-                      Your Review:
-                    </label>
-                    <textarea
-                      id="review-text"
-                      className="form-control"
-                      rows="4"
-                      placeholder="Write your review here..."
-                    ></textarea>
-                  </div>
-                  <button
-                    type="submit"
-                    className="btn btn-primary bg-dark text-white border-0"
-                  >
-                    Submit Review
-                  </button>
-                </form>
-              </div>
-              <div className="user-reviews mt-5">
-                <h5 className="reviews-title mb-4">What Others Are Saying</h5>
-                {userReviews.map((review) => (
-                  <div
-                    key={review.id}
-                    className="user-review bg-white p-3 rounded-lg shadow-sm mb-3"
-                  >
-                    <div className="d-flex justify-content-between">
-                      <h6 className="reviewer-name font-bold">
-                        {review.name}
-                      </h6>
-                      <ReactStars
-                        count={5}
-                        size={20}
-                        color2={'#ffd700'}
-                        edit={false}
-                        value={review.rating}
-                      />
-                    </div>
-                    <p className="review-comment text-gray-700">
-                      {review.comment}
-                    </p>
-                  </div>
-                ))}
-              </div>
+              ))}
             </div>
           </div>
         </div>

@@ -6,15 +6,18 @@ import { getBlog } from '../features/blogs/blogSlice';
 const Blog = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { blog } = useSelector((state) => state.blog?.currentBlog);
-  
+  const { currentBlog } = useSelector((state) => state.blog);
+  const blog = currentBlog?.blog;
   useEffect(() => {
     dispatch(getBlog(id));
   }, [dispatch, id]);
   return (
+    
     <div className="bg-gray-100 min-h-screen">
-      {/* Header Section */}
-      <header className="py-6">
+      {blog && (
+        <>
+          {/* Header Section */}
+          <header className="py-6">
         <div className="container-xxl mx-auto px-4 text-center">
           <h1 className="text-3xl font-bold text-dark">Blog Details</h1>
         </div>
@@ -30,13 +33,13 @@ const Blog = () => {
 
           {/* Blog Metadata */}
           <div className="flex items-center text-sm text-gray-500 mb-6">
-            <span className="mr-4">By {blog?.author}</span>
-            <span>{blog?.createdAt}</span>
+            <span className="mr-2">Updated at</span>
+            <span>{blog?.createdAt.slice(0, 10)}</span>
           </div>
 
           {/* Blog Image */}
           <img
-            src="https://via.placeholder.com/800x400"
+            src={blog?.image}
             alt="Blog"
             className="rounded-lg w-full h-auto mb-6"
           />
@@ -53,8 +56,10 @@ const Blog = () => {
              
               </p>
           </div>
-        </div>
-      </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

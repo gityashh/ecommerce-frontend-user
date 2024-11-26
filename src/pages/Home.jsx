@@ -8,9 +8,16 @@ import {
 } from "react-icons/bs";
 import Marquee from "../components/Marquee";
 import BlogCard from "../components/BlogCard";
-
-
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getBlogs } from "../features/blogs/blogSlice";
+  
 const HomeBanner = () => {
+  const dispatch = useDispatch();
+  const { blogs } = useSelector((state) => state?.blog?.blogs);
+  useEffect(() => {
+    dispatch(getBlogs());
+  }, [dispatch]);
   return (
     <>
       {/* Main Banner Section */}
@@ -189,30 +196,9 @@ const HomeBanner = () => {
 
           {/* Cards Container */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <BlogCard
-              title="Blog 1"
-              description="Blog 1 description"
-              image="https://images.macrumors.com/t/Yho8kTaY1ExNk4y9W2pGpn29z5o=/1600x/article-new/2020/05/airpods-max-2024-colors.jpg.large.jpg"
-              buttonLabel="READ MORE"
-            />
-            <BlogCard
-              title="Blog 2"
-              description="Blog 2 description"
-              image="https://images.macrumors.com/t/Yho8kTaY1ExNk4y9W2pGpn29z5o=/1600x/article-new/2020/05/airpods-max-2024-colors.jpg.large.jpg"
-              buttonLabel="READ MORE"
-            />
-            <BlogCard
-              title="Blog 3"
-              description="Blog 3 description"
-              image="https://images.macrumors.com/t/Yho8kTaY1ExNk4y9W2pGpn29z5o=/1600x/article-new/2020/05/airpods-max-2024-colors.jpg.large.jpg"
-              buttonLabel="READ MORE"
-            />
-            <BlogCard
-              title="Blog 4"
-              description="Blog 4 description"
-              image="https://images.macrumors.com/t/Yho8kTaY1ExNk4y9W2pGpn29z5o=/1600x/article-new/2020/05/airpods-max-2024-colors.jpg.large.jpg"
-              buttonLabel="READ MORE"
-            />
+            {blogs?.map((blog) => (
+              <BlogCard key={blog?._id} blog={blog} />
+            ))}
           </div>
         </div>
       </div>

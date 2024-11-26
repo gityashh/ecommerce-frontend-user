@@ -26,6 +26,7 @@ const ProductCard = ({  id, title, images, price, wishlist }) => {
             src={images[0].url}
             className="card-img-top"
               alt="Product Image"
+
             />
           </div>
           <div className="card-body">
